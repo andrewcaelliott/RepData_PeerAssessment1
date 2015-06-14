@@ -1,25 +1,89 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+title: "steps.Rmd"
+output: html_document
 ---
 
+Exercise for Coursera "Reproducible Research"
 
-## Loading and preprocessing the data
+Read in the source data:
+```{r}
+activity<-read.csv("activity/activity.csv")
+source("steps.R")
+```
+
+##What is mean total number of steps taken per day?
+
+Histogram of total steps per day
+
+```{r}
+activityHistByDay(activity)
+```
+
+Mean and Median of average steps per day
+
+```{r}
+activityMeanAndMedian(activity)
+```
+
+##What is the average daily activity pattern?
+
+Plot of average steps per interval
+
+```{r}
+activityPlotByInterval(activity)
+```
+
+Which interval has greatest average?
+
+```{r}
+activityWhichMax(activity)
+```
+
+##Inputing missing values
+
+How many incomplete rows?
+
+```{r}
+sum(!complete.cases(activity))
+```
+
+Fill incomplete rows using averages for intervals
+
+```{r}
+activitymod <- activityFillNAs(activity)
+```
 
 
+Histogram of total steps per day - incomplete rows filled
 
-## What is mean total number of steps taken per day?
+```{r}
+activityHistByDay(activitymod)
+```
+
+Mean and Median of total steps per day - incomplete rows filled
+
+```{r}
+activityMeanAndMedian(activitymod)
+```
+
+##Are there differences in activity patterns between weekdays and weekends?
+
+Set Weekend / weekday as "dayType""
+
+```{r}
+activitymod<-setDayTypes(activitymod)
+```
+
+Plot of average steps per interval for Weekdays - incomplete rows filled
+
+```{r}
+activityPlotByInterval(activitymod[activitymod[4]=="weekday",])
+```
 
 
+Plot of average steps per interval for Weekends - incomplete rows filled
 
-## What is the average daily activity pattern?
+```{r}
+activityPlotByInterval(activitymod[activitymod[4]=="weekend",])
+```
 
-
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
