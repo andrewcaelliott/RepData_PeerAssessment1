@@ -1,14 +1,10 @@
----
-title: "steps.Rmd"
-output:
-  html_document:
-    keep_md: yes
----
+# steps.Rmd
 
 Exercise for Coursera "Reproducible Research"
 
 Read in the source data:
-```{r}
+
+```r
 activity<-read.csv("activity/activity.csv")
 source("steps.R")
 ```
@@ -17,75 +13,112 @@ source("steps.R")
 
 Histogram of total steps per day
 
-```{r}
+
+```r
 activityHistByDay(activity)
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
 Mean and Median of average steps per day
 
-```{r}
+
+```r
 activityMeanAndMedian(activity)
+```
+
+```
+## [1] 10766.19 10765.00
 ```
 
 ##What is the average daily activity pattern?
 
 Plot of average steps per interval
 
-```{r}
+
+```r
 activityPlotByInterval(activity)
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+
 Which interval has greatest average?
 
-```{r}
+
+```r
 activityWhichMax(activity)
+```
+
+```
+## [1] 835
 ```
 
 ##Inputing missing values
 
 How many incomplete rows?
 
-```{r}
+
+```r
 sum(!complete.cases(activity))
+```
+
+```
+## [1] 2304
 ```
 
 Fill incomplete rows using averages for intervals
 
-```{r}
+
+```r
 activitymod <- activityFillNAs(activity)
 ```
 
 
 Histogram of total steps per day - incomplete rows filled
 
-```{r}
+
+```r
 activityHistByDay(activitymod)
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+
 Mean and Median of total steps per day - incomplete rows filled
 
-```{r}
+
+```r
 activityMeanAndMedian(activitymod)
+```
+
+```
+## [1] 10766.19 10766.19
 ```
 
 ##Are there differences in activity patterns between weekdays and weekends?
 
 Set Weekend / weekday as "dayType""
 
-```{r}
+
+```r
 activitymod<-setDayTypes(activitymod)
 ```
 
 Plot of average steps per interval for Weekdays - incomplete rows filled
 
-```{r}
+
+```r
 activityPlotByInterval(activitymod[activitymod[4]=="weekday",])
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
 
 
 Plot of average steps per interval for Weekends - incomplete rows filled
 
-```{r}
+
+```r
 activityPlotByInterval(activitymod[activitymod[4]=="weekend",])
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
 
